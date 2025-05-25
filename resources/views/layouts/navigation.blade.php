@@ -18,6 +18,9 @@
                     <x-nav-link :href="route('cities.index')" :active="request()->routeIs('cities.*')">
                         {{ __('Ciudades') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('citizens.index')" :active="request()->routeIs('citizens.*')">
+                        {{ __('Ciudadanos') }}
+                    </x-nav-link>
                 </div>
             </div>
 
