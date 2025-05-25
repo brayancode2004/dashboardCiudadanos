@@ -40,6 +40,17 @@ class DashboardController extends Controller
 
         return view('dashboard.agrupado', compact('ciudades', 'busqueda'));
     }
+        public function enviarReporte()
+    {
+        $ciudades = \App\Models\City::with('citizens')->orderBy('name')->get();
+
+        try {
+            Mail::to('codebrayan2004@gmail.com')->send(new \App\Mail\ReporteCiudadanos($ciudades));
+            return redirect()->route('dashboard.agrupado')->with('success', '¡Reporte enviado por correo correctamente!');
+        } catch (\Exception $e) {
+            return redirect()->route('dashboard.agrupado')->with('error', 'Error al enviar correo: ' . $e->getMessage());
+        }
+    }
 
 
 

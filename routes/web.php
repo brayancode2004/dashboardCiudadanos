@@ -22,6 +22,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('cities', CityController::class);
     Route::resource('citizens', CitizenController::class);
     Route::get('/ciudadanos-agrupados', [DashboardController::class, 'vistaAgrupada'])->name('dashboard.agrupado');
+    // Ruta para enviar el correo
+    Route::get('/reporte-ciudadanos/enviar', [DashboardController::class, 'enviarReporte'])->name('dashboard.enviar-reporte');
 });
 
 require __DIR__.'/auth.php';
