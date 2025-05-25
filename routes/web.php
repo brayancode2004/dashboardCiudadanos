@@ -21,6 +21,7 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::resource('cities', CityController::class);
     Route::resource('citizens', CitizenController::class);
+    Route::get('/ciudadanos-agrupados', [DashboardController::class, 'vistaAgrupada'])->name('dashboard.agrupado');
 });
 
 require __DIR__.'/auth.php';
