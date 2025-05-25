@@ -50,5 +50,49 @@
         @empty
             <p class="text-gray-500">No hay ciudades registradas.</p>
         @endforelse
+        
+            {{-- Botón para enviar el reporte --}}
+            <div class="text-right mt-8">
+               <form id="form-enviar-reporte" action="{{ route('dashboard.enviar-reporte') }}" method="GET" onsubmit="return confirmarEnvioAgrupado()">
+                    <button type="submit"
+                        class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-5 py-2 rounded shadow">
+                        Enviar reporte por correo
+                    </button>
+                </form>
+            </div>
     </div>
+        <script>
+        function confirmarEnvioAgrupado() {
+        Swal.fire({
+            title: '¿Enviar reporte?',
+            text: "Se enviará un correo con el listado de ciudadanos agrupados por ciudad.",
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#2563eb',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, enviar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('form-enviar-reporte').submit();
+            }
+        });
+
+        return false;
+    }
+
+    </script>
+
+    @if (session('success') || session('error'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                Swal.fire({
+                    icon: '{{ session("success") ? "success" : "error" }}',
+                    title: '{{ session("success") ? "Éxito" : "Error" }}',
+                    text: '{{ session("success") ?? session("error") }}',
+                    confirmButtonColor: '#2563eb'
+                });
+            });
+        </script>
+    @endif
+
 </x-app-layout>
